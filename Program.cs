@@ -23,6 +23,11 @@ class Program
         if(magnitude > sum_r)
         {
         }
+        else 
+        if(magnitude == sum_r)
+        {
+
+        }
         else
         {
             
