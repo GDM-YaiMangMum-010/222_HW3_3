@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        double c1x,c1y,c2x,c2y,c1r,c2r,a1x,a1y;
+        double c1x,c1y,c2x,c2y,c1r,c2r;
         c1x = double.Parse(Console.ReadLine());
         c1y = double.Parse(Console.ReadLine());
         c2x = double.Parse(Console.ReadLine());
@@ -26,24 +26,37 @@ class Program
         else 
         if(magnitude == sum_r)
         {
+            double dx = c1x - c2x;
+            double dy = c1y - c2y;
+            double d = Math.Sqrt(dx*dx + dy*dy);
 
+            double a = (c1r * c1r - c2r * c2r + d * d) / (2 * d);
+            double h = Math.Sqrt(c1r * c1r - a * a);
+            Vector2 v_a1 = new Vector2(c1x + a * (c2x - c1x) / d, c1y + a * (c2y - c1y) / d);
+
+            Console.WriteLine(v_a1.x);
+            Console.WriteLine(v_a1.y);
         }
         else
         {
             double dx = c1x - c2x;
             double dy = c1y - c2y;
             double d = Math.Sqrt(dx*dx + dy*dy);
-            double gamma1 = Math.Acos((c2r*c2r + d*d - c1r*c1r)/(2*c2r*d));
-            double d1 = c1r*Math.Cos(gamma1);
-            double h = c1r*Math.Sin(gamma1);
-            double px = c1x + (c2x - c1x) / d*d1;
-            double py = c1y + (c2y - c1y) / d*d1;
-            Vector2 intersec1 = new Vector2(px + (-dy) / d * h, py + (+dx) / d * h);
-            Vector2 intersec2 = new Vector2(px - (-dy) / d * h, py - (+dx) / d * h);
+
+            double a = (c1r * c1r - c2r * c2r + d * d) / (2 * d);
+            double h = Math.Sqrt(c1r * c1r - a * a);
+            
+            double c3x = c1x + a * (c2x - c1x) / d;
+            double c3y = c1y + a * (c2y - c1y) / d;
+            
+            Vector2 intersec1 = new Vector2((c3x + h * (c2y - c1y) / d), (c3y - h * (c2x - c1x) / d));
+            Vector2 intersec2 = new Vector2((c3x - h * (c2y - c1y) / d), (c3y + h * (c2x - c1x) / d));
+            
             Console.WriteLine(intersec1.x);
             Console.WriteLine(intersec1.y);
             Console.WriteLine(intersec2.x);
             Console.WriteLine(intersec2.y);
+
         }
     }
 
